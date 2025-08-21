@@ -1,0 +1,19 @@
+{
+    "name": "votre-nom/labonnetrouvaille",
+    "description": "Site d'annonces La Bonne Trouvaille",
+    "type": "project",
+    "autoload": {
+        "classmap": [
+            "Entity/",
+            "controllers/",
+            "models/"
+        ]
+    },
+    "require": {
+        "php": ">=7.4",
+        "altorouter/altorouter": "^2.0"
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

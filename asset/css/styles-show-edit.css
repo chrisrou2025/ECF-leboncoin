@@ -1,0 +1,693 @@
+/* === CONTAINER PRINCIPAL === */
+.annonce-container {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 40px;
+    background: #fff;
+    min-height: calc(100vh - 200px);
+}
+
+.annonce-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+/* === SECTION IMAGES === */
+.annonce-images {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.main-image {
+    width: 415px;
+    height: 240px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(248, 131, 22, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid #ffffff;
+}
+
+.main-image:hover {
+    box-shadow: 0 8px 24px rgba(248, 131, 22, 0.2);
+}
+
+.main-image img,
+.main-image .no-image-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.secondary-images {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.secondary-image {
+    width: 190px;
+    height: 110px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid #ddd;
+}
+
+.secondary-image:hover {
+    border-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(248, 131, 22, 0.2);
+}
+
+.secondary-image img,
+.secondary-image .no-image-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Placeholders pour images manquantes */
+.no-image-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    color: #6c757d;
+}
+
+.no-image-placeholder span {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+}
+
+.no-image-placeholder p {
+    margin: 0;
+    font-family: 'Jaldi', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.no-image-placeholder.small span {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.no-image-placeholder.small p {
+    font-size: 12px;
+}
+
+/* === SECTION INFORMATIONS === */
+.annonce-info {
+    flex: 1;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.annonce-header {
+    text-align: left;
+    padding: 6px 0;
+    border-radius: 15px;
+    color: rgb(0, 0, 0);
+    width: 60%;
+}
+
+.annonce-title {
+    margin: 0;
+    font-family: 'Jaldi', sans-serif;
+    font-size: 32px;
+    line-height: 1.3;
+}
+
+.annonce-price-container {
+    text-align: left;
+    align-self: flex-start;
+}
+
+.annonce-price {
+    font-family: 'Jaldi', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #F88316;
+    background: #fff;
+    display: inline-block;
+}
+
+.annonce-details-gauche {
+    align-self: flex-start;
+    width: 100%;
+    max-width: 625px;
+}
+
+.annonce-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.meta-row {
+    display: flex;
+    gap: 100px;
+    justify-content: space-between;
+}
+
+.meta-item {
+    flex: 1;
+    font-family: 'Jaldi', sans-serif;
+}
+
+.meta-item strong {
+    display: block;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.annonce-description h2 {
+    font-family: 'Jaldi', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.description-content {
+    font-family: 'Jaldi', sans-serif;
+    font-size: 16px;
+    color: #333;
+    width: 100%;
+    min-height: 20px;
+}
+
+/* === STYLES SPÉCIFIQUES À LA PAGE SHOW === */
+.show-page .annonce-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.show-page .annonce-images {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+}
+
+.show-page .annonce-header {
+    order: 2;
+    width: 100%;
+    margin-left: 220px;
+    padding: 0;
+    text-align: left;
+}
+
+.show-page .annonce-price-container {
+    order: 3;
+    align-self: flex-start;
+    width: 100%;
+    margin-left: 220px;
+    padding: 0;
+}
+
+.show-page .annonce-price {
+    margin-left: 0;
+    padding: 0;
+}
+
+.show-page .annonce-details-gauche {
+    order: 4;
+    align-self: flex-start;
+    width: 100%;
+    margin-left: 220px;
+    padding: 0;
+}
+
+.show-page .meta-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+}
+
+/* === STYLES SPÉCIFIQUES À L'ÉDITION === */
+.edit-mode .annonce-images {
+    position: relative;
+}
+
+.edit-images .main-image,
+.edit-images .secondary-image {
+    position: relative;
+}
+
+.edit-images .no-image-placeholder.clickable {
+    cursor: pointer;
+    border-style: solid;
+    border-color: #F88316;
+    background: linear-gradient(135deg, #fff8f3, #fef1e6);
+}
+
+.edit-images .no-image-placeholder.clickable:hover {
+    background: linear-gradient(135deg, #fef1e6, #fed7aa);
+    transform: scale(1.02);
+}
+
+.remove-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #dc3545;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.remove-btn:hover {
+    background: #dc3545;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* === FORMULAIRE === */
+.form-group-row {
+    display: flex;
+    gap: 60px;
+    margin-bottom: 25px;
+    justify-content: space-between;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.form-group.full {
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    margin-top: 20px;
+    font-family: 'Jaldi', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 75%;
+    padding: 9px 15px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    font-family: 'Jaldi', sans-serif;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    color: #333;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group.full input,
+.form-group.full textarea {
+    width: 75%;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #F88316;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(248, 131, 22, 0.3);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+    width: 85%;
+}
+
+/* Messages d'alerte */
+.alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.alert h3 {
+    font-family: 'Jaldi', sans-serif;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+}
+
+.alert ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.alert li {
+    font-family: 'Jaldi', sans-serif;
+    margin-bottom: 5px;
+}
+
+/* Boutons d'action */
+.form-actions {
+    display: flex;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.btn {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 18px;
+    font-family: 'Jaldi', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: #F88316;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #ac5809;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(248, 131, 22, 0.3);
+}
+
+.btn-secondary {
+    background: white;
+    color: rgb(0, 0, 0);
+    border: 1px solid #000000;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(161, 161, 161, 0.3);
+    text-decoration: none;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1100px) {
+    .annonce-container {
+        margin: 0 20px;
+        padding: 20px;
+    }
+
+    .annonce-info {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .annonce-container {
+        padding: 15px;
+    }
+
+    /* PAGE SHOW */
+    .show-page .annonce-wrapper {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .show-page .annonce-images {
+        order: 1;
+        width: 100%;
+        justify-content: center;
+        align-self: center;
+    }
+
+    .show-page .secondary-images {
+        display: none;
+    }
+
+    .show-page .main-image {
+        width: 100%;
+        max-width: 400px;
+        height: 220px;
+    }
+
+    .show-page .annonce-header {
+        order: 2;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        align-self: flex-start;
+    }
+
+    .show-page .annonce-price-container {
+        order: 3;
+        align-self: flex-start;
+        text-align: left;
+        width: 100%;
+        margin: 0;
+    }
+
+    .show-page .annonce-price {
+        font-size: 1.75rem;
+        text-align: left;
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .show-page .annonce-details-gauche {
+        order: 4;
+        align-self: flex-start;
+        width: 100%;
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .show-page .meta-row {
+        flex-direction: column;
+        gap: 15px;
+        padding: 0;
+    }
+
+    /* PAGE EDIT */
+    .edit-mode .annonce-wrapper {
+        align-items: flex-start;
+    }
+
+    .edit-mode .annonce-info {
+        width: 100%;
+        margin-left: 0;
+        padding: 0;
+        align-self: flex-start;
+    }
+
+    .edit-mode .annonce-images {
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .edit-mode .secondary-images {
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+        gap: 18px;
+    }
+
+    .edit-mode .secondary-image {
+        width: 100%;
+        max-width: 400px;
+        height: 220px;
+        border-radius: 15px;
+    }
+
+    .edit-mode .secondary-image .no-image-placeholder {
+        width: 100%;
+        max-width: 400px;
+        height: 220px;
+        border-radius: 15px;
+    }
+
+    .form-group-row {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-group.full input,
+    .form-group.full textarea {
+        width: 100%;
+    }
+
+    .form-group label {
+        text-align: left;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .form-actions {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 12px 8px;
+        font-size: 16px;
+        text-align: center;
+        border-radius: 15px;
+    }
+
+    .remove-btn {
+        display: flex;
+    }
+}
+
+@media (max-width: 480px) {
+    .annonce-container {
+        padding: 10px;
+    }
+
+    .main-image {
+        height: 200px;
+        max-width: 350px;
+    }
+
+    .edit-mode .secondary-image {
+        height: 200px;
+        max-width: 350px;
+    }
+
+    .edit-mode .secondary-image .no-image-placeholder {
+        height: 200px;
+        max-width: 350px;
+    }
+
+    .annonce-title {
+        font-size: 20px;
+        margin: 0;
+    }
+
+    .annonce-price {
+        font-size: 1.5rem;
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .annonce-details-gauche {
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .edit-mode .annonce-info {
+        margin-left: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .edit-mode .form-group-row {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .edit-mode .form-group {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .edit-mode .form-group label {
+        text-align: left;
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    .edit-mode .form-actions {
+        align-items: flex-start;
+        width: 100%;
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    .form-actions {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 10px 6px;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .remove-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+        top: 5px;
+        right: 5px;
+        display: flex;
+        position: absolute;
+        z-index: 100;
+    }
+}

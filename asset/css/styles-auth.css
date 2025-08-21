@@ -1,0 +1,710 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Jaldi', sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* === HEADER === */
+.header-logo {
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    border-bottom: 1px solid #bebdbd;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0px 0;
+}
+
+.logo {
+    font-family: 'Jaldi', sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+    color: #F88316;
+    text-decoration: none;
+}
+
+.logo:hover {
+    color: #c8490aff;
+    transition: color 0.3s ease;
+}
+
+/* === CONTENEUR PRINCIPAL === */
+.main-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+.form-container {
+    width: 1050px;
+    max-width: 100%;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.form-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-section {
+    min-width: 0;
+}
+
+/* === SECTION IMAGE === */
+.image-section {
+    flex-shrink: 0;
+    width: 400px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.register-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* === TITRES === */
+.page-title-container {
+    max-width: 1050px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto 15px auto;
+    padding: 0 0 10px 0;
+}
+
+.page-title {
+    font-family: 'Jaldi', sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+    color: #000;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.form-title {
+    font-family: 'Jaldi', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: #000;
+    text-align: left;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+/* === FORMULAIRES === */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group:last-of-type {
+    margin-bottom: 40px;
+}
+
+.form-label {
+    display: block;
+    font-family: 'Jaldi', sans-serif;
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.form-label .required {
+    color: #000000;
+}
+
+.form-input {
+    width: 330px;
+    height: 50px;
+    padding: 0 40px 0 15px;
+    font-family: 'Jaldi', sans-serif;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    color: #333;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    border-color: #F88316;
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(248, 131, 22, 0.3);
+}
+
+.input-with-icon {
+    position: relative;
+    display: inline-block;
+    width: 330px;
+    max-width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* === BOUTONS === */
+.submit-button {
+    width: 330px;
+    height: 50px;
+    background-color: #F88316;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    font-family: 'Jaldi', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #e6741a;
+}
+
+.cancel-button {
+    width: 330px;
+    height: 50px;
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 20px;
+    font-family: 'Jaldi', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.cancel-button:hover {
+    background-color: #f8f9fa;
+}
+
+/* === MESSAGES === */
+.error-message {
+    background-color: #fee;
+    color: #c33;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border-left: 4px solid #c33;
+}
+
+.success-message {
+    background-color: #efe;
+    color: #363;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border-left: 4px solid #363;
+}
+
+.validation-errors {
+    margin-top: 10px;
+}
+
+.validation-errors ul {
+    margin-left: 20px;
+}
+
+.validation-errors li {
+    margin-bottom: 5px;
+}
+
+/* === LIENS === */
+.login-link {
+    text-align: center;
+    margin-top: 30px;
+    font-family: 'Jaldi', sans-serif;
+    font-size: 16px;
+}
+
+.login-link a {
+    color: #F88316;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* === FOOTER === */
+.footer {
+    background-color: #000000;
+    border-bottom: 1px solid #e5e5e5;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e5e5e5;
+    font-family: 'Jaldi', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* === DASHBOARD COMPTE === */
+.account-dashboard {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.account-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.account-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f0f0f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.account-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f8f9fa;
+    padding-bottom: 15px;
+}
+
+.card-title {
+    font-family: 'Jaldi', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-title i {
+    color: #F88316;
+    font-size: 18px;
+}
+
+.card-content {
+    margin-top: 15px;
+}
+
+/* === CARTE D'ACTION === */
+.action-card {
+    background: linear-gradient(135deg, #F88316 0%, #e6741a 100%);
+    color: white;
+    border: none;
+}
+
+.action-card .card-title,
+.action-card .card-title i {
+    color: white;
+}
+
+.card-description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.action-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(5px);
+}
+
+/* === DASHBOARD ANNONCES === */
+.annonces-dashboard {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.annonces-content {
+    min-height: 400px;
+}
+
+.annonces-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.annonce-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.annonce-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.annonce-image-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.annonce-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.annonce-card:hover .annonce-image {
+    transform: scale(1.05);
+}
+
+.annonce-content {
+    padding: 20px;
+}
+
+.annonce-title {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.annonce-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.annonce-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #F88316;
+    margin-bottom: 10px;
+}
+
+.annonce-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 15px;
+}
+
+.annonce-actions {
+    display: flex;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: #F88316;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #8e531c;
+    transform: translateY(-2px);
+}
+
+.delete-btn {
+    background: #F44336;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #da190b;
+    transform: translateY(-2px);
+}
+
+.delete-form {
+    flex: 1;
+}
+
+/* === ÉTAT VIDE === */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.empty-state-icon {
+    margin-bottom: 20px;
+}
+
+.empty-state-icon i {
+    font-size: 64px;
+    color: #ddd;
+}
+
+.empty-state-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.empty-state-description {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.empty-state-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: #F88316;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(248, 131, 22, 0.3);
+}
+
+.empty-state-action:hover {
+    background: #e6741a;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(248, 131, 22, 0.4);
+}
+
+/* === MEDIA QUERIES === */
+@media (max-width: 1200px) {
+    .account-cards-container {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 20px auto 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title-container {
+        padding: 0 0 8px 0;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .account-dashboard,
+    .annonces-dashboard {
+        padding: 15px;
+    }
+
+    .account-cards-container {
+        gap: 20px;
+        grid-template-columns: 1fr;
+    }
+
+    .account-card {
+        padding: 20px;
+    }
+
+    .form-input,
+    .submit-button,
+    .cancel-button {
+        width: 100%;
+    }
+
+    .annonces-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .logo {
+        font-size: 32px;
+    }
+
+    .empty-state {
+        padding: 40px 20px;
+    }
+
+    .empty-state-icon i {
+        font-size: 48px;
+    }
+
+    .empty-state-title {
+        font-size: 20px;
+    }
+
+    .empty-state-description {
+        font-size: 14px;
+    }
+
+    /* Réorganisation pour mobile */
+    .form-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-content {
+        width: 100%;
+        max-width: 400px;
+        order: 0;
+    }
+
+    .image-section {
+        order: -1;
+        width: 100%;
+        height: auto;
+        margin-bottom: 0px;
+    }
+
+    .form-section {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .form-title {
+        font-size: 24px;
+        text-align: left;
+        margin-bottom: 0px;
+    }
+
+    .form-input,
+    .input-with-icon {
+        width: 100%;
+    }
+
+    .submit-button,
+    .cancel-button {
+        width: 100%;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 24px;
+    }
+
+    .annonce-actions {
+        flex-direction: row;
+        gap: 8px;
+        justify-content: space-between;
+    }
+
+    .action-btn {
+        flex: 1;
+        padding: 12px 8px;
+        font-size: 13px;
+    }
+
+    .delete-form {
+        flex: 1;
+    }
+
+    .account-card {
+        padding: 15px;
+    }
+
+    .form-title {
+        font-size: 18px;
+    }
+
+    .form-input {
+        height: 45px;
+        font-size: 14px;
+    }
+
+    .submit-button,
+    .cancel-button {
+        height: 45px;
+        font-size: 16px;
+    }
+
+    .image-section {
+        width: 100%;
+        height: auto;
+    }
+}
