@@ -8,6 +8,7 @@ $router->setBasePath('/ECF-leboncoin');
 
 // Définition des routes
 $router->map('GET', '/', 'ControllerPage#homePage', 'homepage');
+$router->map('GET', '/recherche', 'ControllerPage#searchAnnonces', 'search_annonces');
 $router->map('GET', '/annonce/create', 'ControllerAnnonce#createAnnonceForm', 'annonce_create_form');
 $router->map('POST', '/annonce/store', 'ControllerAnnonce#storeAnnonce', 'annonce_store');
 $router->map('GET', '/annonce/[i:id]', 'ControllerAnnonce#showAnnonce', 'annonce_show');

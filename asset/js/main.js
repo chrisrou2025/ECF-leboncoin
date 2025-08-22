@@ -57,28 +57,207 @@ function confirmDelete(annonceId) {
     }
 }
 
-// === GESTION DE LA RECHERCHE ===
-function initializeSearch() {
-    const searchInput = document.querySelector('.search-input');
-    const searchButton = document.querySelector('.search-button');
-    if (!searchInput || !searchButton) return;
+// === RECHERCHE DYNAMIQUE ===
+let searchTimeout;
 
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            performSearch();
-        }
+function initializeDynamicSearch() {
+    const searchInputs = document.querySelectorAll('.search-input');
+
+    searchInputs.forEach(input => {
+        input.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                performDynamicSearch(e.target.value.trim());
+            }, 300); // Attendre 300ms après la dernière frappe
+        });
+
+        // Garder la fonctionnalité Enter existante
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const searchTerm = e.target.value.trim();
+                if (searchTerm) {
+                    performDynamicSearch(searchTerm);
+                }
+            }
+        });
     });
-    searchButton.addEventListener('click', performSearch);
+
+    // Garder la fonctionnalité bouton existante
+    const searchButtons = document.querySelectorAll('.search-button');
+    searchButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const searchInput = button.parentElement.querySelector('.search-input');
+            if (searchInput) {
+                const searchTerm = searchInput.value.trim();
+                performDynamicSearch(searchTerm);
+            }
+        });
+    });
+}
+
+function performDynamicSearch(searchTerm) {
+    // Seulement sur la page d'accueil
+    const isHomePage = ['/', '/index.php', ''].some(path =>
+        window.location.pathname.endsWith('/ECF-leboncoin' + path)
+    );
+
+    if (!isHomePage) {
+        // Sur les autres pages, faire une redirection classique
+        if (searchTerm) {
+            window.location.href = `/ECF-leboncoin/recherche?q=${encodeURIComponent(searchTerm)}`;
+        }
+        return;
+    }
+
+    // Requête AJAX pour la recherche dynamique
+    const xhr = new XMLHttpRequest();
+    const url = `/ECF-leboncoin/recherche?q=${encodeURIComponent(searchTerm)}`;
+
+    xhr.open('GET', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    const annonces = JSON.parse(xhr.responseText);
+                    updateAnnoncesList(annonces, searchTerm);
+                } catch (e) {
+                    console.error('Erreur parsing JSON:', e);
+                    displaySessionMessage('Erreur lors de la recherche', 'error');
+                }
+            } else {
+                console.error('Erreur AJAX:', xhr.status);
+                displaySessionMessage('Erreur de connexion', 'error');
+            }
+        }
+    };
+
+    xhr.send();
+}
+
+function updateAnnoncesList(annonces, searchTerm) {
+    const container = document.getElementById('annonces-container');
+    const noResultsMessage = document.getElementById('no-results-message');
+    const sectionTitle = document.querySelector('.section-title');
+
+    if (!container || !noResultsMessage) return;
+
+    // Mettre à jour le titre
+    if (sectionTitle) {
+        if (searchTerm) {
+            sectionTitle.textContent = `Résultats pour "${searchTerm}" (${annonces.length})`;
+        } else {
+            sectionTitle.textContent = 'En ce moment sur labonnetrouvaille';
+        }
+    }
+
+    // Vider le conteneur
+    container.innerHTML = '';
+
+    if (annonces.length > 0) {
+        annonces.forEach(annonce => {
+            const annonceElement = createAnnonceElement(annonce);
+            container.appendChild(annonceElement);
+        });
+
+        container.style.display = 'flex';
+        noResultsMessage.style.display = 'none';
+
+        // Mettre à jour allAnnonces pour le filtrage
+        allAnnonces = annonces.map(annonce => ({
+            element: container.querySelector(`[data-annonce-id="${annonce.id}"]`),
+            categoryId: annonce.category_id.toString(),
+            categoryName: annonce.category_nom,
+            price: annonce.prix,
+            date: new Date(annonce.created_at),
+            title: annonce.titre.toLowerCase()
+        }));
+
+    } else {
+        container.style.display = 'none';
+        noResultsMessage.style.display = 'block';
+
+        // Mettre à jour le message
+        const noResultsParagraph = noResultsMessage.querySelector('p');
+        if (noResultsParagraph && searchTerm) {
+            noResultsParagraph.textContent = `Aucune annonce trouvée pour "${searchTerm}".`;
+        }
+    }
+}
+
+function createAnnonceElement(annonce) {
+    const div = document.createElement('div');
+    div.className = 'annonce-card';
+    div.setAttribute('data-annonce-id', annonce.id);
+    div.setAttribute('data-category-id', annonce.category_id);
+    div.setAttribute('data-category-name', annonce.category_nom);
+    div.setAttribute('data-price', annonce.prix);
+    div.setAttribute('data-date', annonce.created_at);
+    div.setAttribute('data-title', annonce.titre.toLowerCase());
+
+    // Créer le contenu HTML
+    const isOwner = window.currentUserId && window.currentUserId == annonce.user_id;
+    const linkUrl = isOwner ?
+        `/ECF-leboncoin/annonce/${annonce.id}/edit` :
+        `/ECF-leboncoin/annonce/${annonce.id}`;
+
+    // Déterminer le détail à afficher (kilométrage ou localité)
+    let detailText = '&nbsp;';
+    if (annonce.is_vehicule && annonce.kilometrage) {
+        detailText = `${new Intl.NumberFormat('fr-FR').format(annonce.kilometrage)} km`;
+    } else if (annonce.localite) {
+        detailText = annonce.localite;
+    }
+
+    // Calculer le temps écoulé (simple approximation)
+    const timeElapsed = calculateTimeElapsed(annonce.created_at);
+
+    div.innerHTML = `
+        <p class="annonce-author">${annonce.user_pseudo}</p>
+        <div class="annonce-image">
+            <a href="${linkUrl}" class="annonce-link">
+                <img src="${annonce.image_principale}" 
+                     alt="${annonce.titre}" 
+                     class="annonce-image-img">
+            </a>
+        </div>
+        <div class="annonce-info">
+            <h4 class="annonce-title">${annonce.titre}</h4>
+            ${!annonce.is_maison_jardin && annonce.marque ? `<p class="annonce-marque">${annonce.marque}</p>` : ''}
+            <p class="annonce-price">${new Intl.NumberFormat('fr-FR').format(annonce.prix)} €</p>
+            <p class="annonce-details">${detailText}</p>
+            <p class="annonce-time-elapsed">il y a ${timeElapsed}</p>
+        </div>
+    `;
+
+    return div;
+}
+
+function calculateTimeElapsed(createdAt) {
+    const date = new Date(createdAt);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDays > 0) {
+        return `${diffDays} jour${diffDays > 1 ? 's' : ''}`;
+    } else if (diffHours > 0) {
+        return `${diffHours} heure${diffHours > 1 ? 's' : ''}`;
+    } else {
+        return `${diffMins} minute${diffMins > 1 ? 's' : ''}`;
+    }
 }
 
 function performSearch() {
     const searchInput = document.querySelector('.search-input');
     if (!searchInput) return;
     const searchTerm = searchInput.value.trim();
-    if (searchTerm) {
-        window.location.href = `/ECF-leboncoin/recherche?q=${encodeURIComponent(searchTerm)}`;
-    }
+    performDynamicSearch(searchTerm);
 }
 
 // === GESTION DES MOTS DE PASSE ===
@@ -670,7 +849,7 @@ function initializeScrollEffects() {
 
 // === INITIALISATION PRINCIPALE ===
 document.addEventListener('DOMContentLoaded', () => {
-    initializeSearch();
+    initializeDynamicSearch();
     initializePasswordToggle();
     initializeFiltering();
     initializePhotoUpload();

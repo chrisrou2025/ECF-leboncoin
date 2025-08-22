@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Page de base
  * Contient la structure HTML de base pour toutes les pages
@@ -221,6 +222,9 @@
         <p>&copy; <?= date('Y') ?> labonnetrouvaille. Tous droits réservés.</p>
     </footer>
 
+    <script>
+        window.currentUserId = <?= isset($_SESSION['id']) ? $_SESSION['id'] : 'null' ?>;
+    </script>
     <script src="/ECF-leboncoin/asset/js/main.js"></script>
 
     <?php if (isset($_SESSION['success'])) : ?>

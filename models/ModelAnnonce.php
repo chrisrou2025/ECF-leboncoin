@@ -127,23 +127,51 @@ class ModelAnnonce extends ModelBase
     }
 
     /**
-     * Recherche des annonces par terme
+     * Recherche des annonces par terme (améliorée pour recherche dynamique)
      */
     public function searchAnnonces(string $searchTerm): array
     {
         try {
+            // Préparer les termes de recherche
+            $searchTermLike = '%' . $searchTerm . '%'; // Recherche globale
+            $searchTermStart = $searchTerm . '%'; // Recherche en début de mot
+            $searchTermWordStart = '% ' . $searchTerm . '%'; // Recherche en début de mot dans une phrase
+
             $query = $this->db->prepare('
-                SELECT a.*, c.nom AS category_nom, u.pseudo AS user_pseudo
-                FROM annonces a
-                JOIN categories c ON a.category_id = c.id
-                JOIN users u ON a.user_id = u.id
-                WHERE a.titre LIKE :searchTerm OR a.description LIKE :searchTerm
-                ORDER BY a.created_at DESC
-            ');
-            $searchTerm = '%' . $searchTerm . '%';
-            $query->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
+            SELECT a.*, c.nom AS category_nom, u.pseudo AS user_pseudo
+            FROM annonces a
+            JOIN categories c ON a.category_id = c.id
+            JOIN users u ON a.user_id = u.id
+            WHERE (
+                a.titre LIKE :searchTermStart OR
+                a.titre LIKE :searchTermWordStart OR
+                a.description LIKE :searchTermStart OR
+                a.description LIKE :searchTermWordStart OR
+                a.marque LIKE :searchTermStart OR
+                a.localite LIKE :searchTermStart OR
+                a.titre LIKE :searchTermLike OR
+                a.description LIKE :searchTermLike
+            )
+            ORDER BY 
+                -- Prioriser les résultats qui commencent par le terme
+                CASE 
+                    WHEN a.titre LIKE :searchTermStart THEN 1
+                    WHEN a.titre LIKE :searchTermWordStart THEN 2
+                    WHEN a.marque LIKE :searchTermStart THEN 3
+                    WHEN a.localite LIKE :searchTermStart THEN 4
+                    ELSE 5
+                END,
+                a.created_at DESC
+            LIMIT 50
+        ');
+
+            $query->bindParam(':searchTermLike', $searchTermLike, PDO::PARAM_STR);
+            $query->bindParam(':searchTermStart', $searchTermStart, PDO::PARAM_STR);
+            $query->bindParam(':searchTermWordStart', $searchTermWordStart, PDO::PARAM_STR);
             $query->execute();
+
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
             return array_map(function ($data) {
                 $annonce = new Annonce($data);
                 $images = $this->getImagesByAnnonceId($data['id']);
