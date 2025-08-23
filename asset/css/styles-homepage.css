@@ -211,16 +211,6 @@
     transform: scale(1.02);
 }
 
-.annonce-image-placeholder {
-    font-size: 48px;
-    color: #ccc;
-    transition: transform 0.2s ease;
-}
-
-.annonce-link:hover .annonce-image-placeholder {
-    transform: scale(1.1);
-}
-
 /* === MESSAGE AUCUNE ANNONCE === */
 .no-annonces {
     text-align: center;
