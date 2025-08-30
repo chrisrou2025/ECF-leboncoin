@@ -847,29 +847,64 @@ function initializeScrollEffects() {
     });
 }
 
-// === INITIALISATION PRINCIPALE ===
-document.addEventListener('DOMContentLoaded', () => {
-    initializeDynamicSearch();
-    initializePasswordToggle();
-    initializeFiltering();
-    initializePhotoUpload();
-    initializeEditImageManagement();
-    initializeCategoryNavigation();
-    initializeConditionalFields();
-    initializeScrollEffects();
-    initializeBurgerMenu(); // Nouvelle fonction
-});
+// === INITIALISATION GROUPÉE SIMPLIFIÉE ===
+function initializeAllFeatures() {
+    // Liste de toutes les fonctions d'initialisation
+    const features = [
+        initializeDynamicSearch,
+        initializePasswordToggle,
+        initializeFiltering,
+        initializePhotoUpload,
+        initializeEditImageManagement,
+        initializeCategoryNavigation,
+        initializeConditionalFields,
+        initializeScrollEffects,
+        initializeBurgerMenu
+    ];
+    
+    // Initialiser chaque fonctionnalité avec gestion d'erreurs
+    features.forEach(feature => {
+        try {
+            feature();
+            console.log(`✓ ${feature.name} initialisé`);
+        } catch (error) {
+            console.error(`✗ Erreur ${feature.name}:`, error);
+        }
+    });
+}
 
-// === EXPOSITION GLOBALE - AJOUT DES NOUVELLES FONCTIONS ===
-window.confirmLogout = confirmLogout;
-window.confirmDelete = confirmDelete;
-window.filterByCategory = filterByCategory;
-window.displaySessionMessage = displaySessionMessage;
-window.triggerImageUpload = triggerImageUpload;
-window.removeExistingImage = removeExistingImage;
-window.handleImageUpload = handleImageUpload;
-window.removeNewImage = removeNewImage;
-window.removeImageFromThumbnail = removeImageFromThumbnail;
-window.toggleMobileMenu = toggleMobileMenu; // Nouveau
-window.closeMobileMenu = closeMobileMenu;   // Nouveau
-window.openMobileMenu = openMobileMenu;     // Nouveau
+// === EXPOSITION GLOBALE GROUPÉE ===
+function exposeGlobalFunctions() {
+    // Liste des fonctions à rendre accessibles depuis le HTML
+    const functionsToExpose = {
+        confirmLogout: confirmLogout,
+        confirmDelete: confirmDelete,
+        filterByCategory: filterByCategory,
+        displaySessionMessage: displaySessionMessage,
+        triggerImageUpload: triggerImageUpload,
+        removeExistingImage: removeExistingImage,
+        handleImageUpload: handleImageUpload,
+        removeNewImage: removeNewImage,
+        removeImageFromThumbnail: removeImageFromThumbnail,
+        toggleMobileMenu: toggleMobileMenu,
+        closeMobileMenu: closeMobileMenu,
+        openMobileMenu: openMobileMenu
+    };
+    
+    // Exposer toutes les fonctions en une fois
+    Object.assign(window, functionsToExpose);
+    console.log('Fonctions globales exposées');
+}
+
+// === DÉMARRAGE DE L'APPLICATION ===
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Démarrage de l\'application...');
+    
+    // Étape 1: Initialiser toutes les fonctionnalités
+    initializeAllFeatures();
+    
+    // Étape 2: Exposer les fonctions pour le HTML
+    exposeGlobalFunctions();
+    
+    console.log('Application prête !');
+});
