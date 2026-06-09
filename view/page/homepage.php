@@ -83,7 +83,7 @@ if (!empty($recentAnnonces)) {
                             <?php else: ?>
                                 <a href="/ECF-leboncoin/annonce/<?= $annonce->getId() ?>" class="annonce-link">
                             <?php endif; ?>
-                                    <img src="<?= htmlspecialchars($annonce->getImagePrincipale() ?? '/ECF-leboncoin/asset/img/default-annonce.jpg') ?>"
+                                    <img src="<?= htmlspecialchars($annonce->getImagePrincipale() ?? '/ECF-leboncoin/asset/images/image.png') ?>"
                                          alt="<?= htmlspecialchars($annonce->getTitre()) ?>"
                                          class="annonce-image-img">
                                 </a>

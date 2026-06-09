@@ -36,10 +36,10 @@ class ModelAnnonce extends ModelBase
             $stmt->bindParam(':annonce_id', $annonceId, PDO::PARAM_INT);
             $stmt->execute();
             $image = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $image ? $image['path'] : '/ECF-leboncoin/asset/img/default-annonce.jpg';
+            return $image ? $image['path'] : '/ECF-leboncoin/asset/images/image.png';
         } catch (PDOException $e) {
             error_log("Erreur lors de la récupération de l'image : " . $e->getMessage());
-            return '/ECF-leboncoin/asset/img/default-annonce.jpg';
+            return '/ECF-leboncoin/asset/images/image.png';
         }
     }
 

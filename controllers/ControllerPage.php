@@ -77,7 +77,7 @@ class ControllerPage
                     'category_id' => $annonce->getCategoryId(),
                     'category_nom' => htmlspecialchars($annonce->getCategoryNom() ?? ''),
                     'created_at' => $annonce->getCreatedAt(),
-                    'image_principale' => $annonce->getImagePrincipale() ?? '/ECF-leboncoin/asset/img/default-annonce.jpg',
+                    'image_principale' => $annonce->getImagePrincipale() ?? '/ECF-leboncoin/asset/images/image.png',
                     'is_vehicule' => $annonce->isVehicule(),
                     'is_maison_jardin' => $annonce->isMaisonJardin()
                 ];
